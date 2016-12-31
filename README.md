@@ -1,8 +1,6 @@
 # Aploader
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/aploader`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+File uploading for APIs made easy
 
 ## Installation
 
@@ -22,7 +20,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+# Define the temporary filename
+filename = 'something'
+# Have your Base64 string
+base64string = 'something'
+# Find if the file was already created, otherwise create it
+processed_bin = Aploader.find(filename) || Aploader.create(base64string, filename)
+if !processed_bin.nil?
+  # You can now use the stored file
+  processed_bin.file
+end
+# Delete the temporary file when you're ready
+processed_bin.flush!
+```
 
 ## Development
 
@@ -32,10 +43,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/aploader. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/hepu/aploader. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
