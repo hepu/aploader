@@ -5,7 +5,15 @@ describe Aploader do
     expect(Aploader::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  describe '.create' do
+
+  end
+
+  describe '.find' do
+
+  end
+
+  describe '.generate_path' do
+
   end
 end
