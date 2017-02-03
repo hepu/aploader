@@ -7,7 +7,12 @@ class Aploader::TmpFile
     @path = Aploader.generate_path(@filename)
   end
 
-  def process!(url_or_file)
+  def process!(url_or_file, options={})
+    # Defining default options and merging received options
+    options = {
+      decode: true
+    }.merge(options)
+
     if url_or_file.empty? || url_or_file.nil?
       return nil
     else
@@ -19,10 +24,18 @@ class Aploader::TmpFile
         @url = url_or_file
         uri = URI.parse(url_or_file)
         response = Net::HTTP.get_response(uri)
-        payload = Base64.decode64(response.body)
+        if options.decode == true
+          payload = Base64.decode64(response.body)
+        else
+          payload = response.body
+        end
       else
         @type = :file
-        payload = Base64.decode64(url_or_file)
+        if options.decode == true
+          payload = Base64.decode64(url_or_file)
+        else
+          payload = url_or_file
+        end
       end
 
       begin
