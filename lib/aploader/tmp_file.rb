@@ -11,7 +11,7 @@ class Aploader::TmpFile
     # Defining default options and merging received options
     options = {
       decode: true
-    }.merge(options)
+    }.merge(options.symbolize_keys).symbolize_keys
 
     if url_or_file.empty? || url_or_file.nil?
       return nil
@@ -24,14 +24,14 @@ class Aploader::TmpFile
         @url = url_or_file
         uri = URI.parse(url_or_file)
         response = Net::HTTP.get_response(uri)
-        if options.decode == true
+        if options[:decode] == true
           payload = Base64.decode64(response.body)
         else
           payload = response.body
         end
       else
         @type = :file
-        if options.decode == true
+        if options[:decode] == true
           payload = Base64.decode64(url_or_file)
         else
           payload = url_or_file
