@@ -16,9 +16,9 @@ module Aploader
   TMP_DIR='tmp'
 
   class << self
-    def create(url_or_file, filename=nil)
+    def create(url_or_file, filename=nil, options={})
       bp = TmpFile.new(filename)
-      bp.process!(url_or_file)
+      bp.process!(url_or_file, options)
       return bp
     end
 
